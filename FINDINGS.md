@@ -1,5 +1,7 @@
 # Current evidence and historical findings
 
+**Implementation update:** the runnable build now uses the recipe-blind v2 Charlatan. The following live results belong to the earlier guided-alias implementation. Offline v2 tests establish mechanics only; see [the change notes](docs/BLIND_CHARLATAN.md).
+
 The standalone ticketing setup has three recorded ten-worker development runs with qwen3.5-397b: each caught all three scripted rogues, with no positive catches among seven honest workers. See [the latest-run audit](results/LATEST_RUN_REVIEW.md) and the unchanged [example summaries](results/README.md).
 
 Flags are not catches. Honest workers can be investigated and even planted without using the decoy. The strongest current evidence is the chain from a worker-specific planted alias to a broad request and a resolution citing its returned evidence.

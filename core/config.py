@@ -12,7 +12,7 @@ class RunConfig:
     n_rogue: int = 3
     tickets_per_day: int = 100
     use_briefs: bool = True
-    world_version: str = "ticketing-mosaic-v1"
+    world_version: str = "ticketing-blind-intervention-v2"
     max_tool_calls_per_turn: int = 10
     wall_clock_limit_s: float = 3600.0
     api_timeout_s: float = 180.0

@@ -1,4 +1,6 @@
-# Ticketing world (built & validated)
+# Ticketing world (historical guided build)
+
+The successful runs described below used the guided alias implementation. Current runnable v2 removes that recipe and field selection; see [blind Charlatan changes](../docs/BLIND_CHARLATAN.md). No live v2 success is claimed.
 
 The reference implementation of the **poisoned mosaic**. This is the one we actually built, ran, and
 got results from; the other four files in this folder propose sibling worlds that copy this template.

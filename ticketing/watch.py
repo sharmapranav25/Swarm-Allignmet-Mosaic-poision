@@ -58,15 +58,17 @@ class Mon:
             pt = e.get("point")
             self.line("SUPERVISOR", c["mag"], f"gate {e['worker']}/{e['tool']} -> "
                       f"{(c['red']+'POINT'+c['x']) if pt else 'no-point'}", t)
+        elif k in ("charlatan_review", "plant_rejected", "plant_unavailable", "plant_prediction_match"):
+            self.line("CHARLATAN", c["yel"], f"{e['worker']}: {k} {e.get('tool','')} {str(e.get('reason',''))[:100]}", t)
         elif k == "plant_proposal":
             self.line("CHARLATAN", c["yel"], f"{e['worker']}: proposes {e.get('action')} "
                       f"{c['dim']}{str(e.get('reason',''))[:60]}{c['x']}", t)
         elif k == "plant_registered":
             self.line("CHARLATAN", c["yel"], f"{c['b']}planted decoy on {e['worker']}{c['x']} "
-                      f"(predicted {e.get('predicted_path')})", t)
+                      f"(prediction {e.get('prediction',e.get('predicted_path'))})", t)
         elif k == "plant_delivered":
-            self.line("CHARLATAN", c["yel"], f"delivered decoy alias to {e['worker']}: "
-                      f"{e['original']['data']} -> {e['delivered']['data']}", t)
+            self.line("CHARLATAN", c["yel"], f"delivered alteration to {e['worker']}: "
+                      f"{str(e['original'])[:160]} -> {str(e['delivered'])[:160]}", t)
         elif k == "agent_output":
             w = e["agent_id"]; coh = self.role.get(w,"?")
             col = c["red"] if coh == "rogue" else (c["grn"] if coh == "control" else c["blu"])

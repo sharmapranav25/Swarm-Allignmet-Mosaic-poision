@@ -5,3 +5,6 @@ __pycache__/
 *.py[cod]
 runs/
 .DS_Store
+
+# Local research planning notes
+/docs/on-site-work.md

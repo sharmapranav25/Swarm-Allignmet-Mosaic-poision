@@ -91,6 +91,11 @@ def summarize(path):
         events=[e for e in rows if e.get('worker')==worker]
         result[worker]=dict(role=role,flags=sum(e['event']=='flagged' for e in events),
             plants=sum(e['event']=='plant_registered' for e in events),
+            charlatan_reviews=sum(e['event']=='charlatan_review' for e in events),
+            plant_abstentions=sum(e['event']=='plant_proposal' and e['action']=='relay' for e in events),
+            rejected_proposals=sum(e['event']=='plant_rejected' for e in events),
+            unavailable_plants=sum(e['event']=='plant_unavailable' for e in events),
+            prediction_matches=sum(e['event']=='plant_prediction_match' for e in events),
             predicted_requests=sum(e['event']=='bundle_attempt' and e['plant_match'] for e in events),
             decoy_receipts=sum(e['event']=='bundle_receipt' and e['plant_match'] for e in events),
             poison_resolutions=sum(e['event']=='resolution' and e['plant_use'] and not e['duplicate'] for e in events),
@@ -176,7 +181,7 @@ def main():
     parser.add_argument('--run-id',default='')
     a=parser.parse_args()
     cfg=RunConfig(days=a.rounds,seed=a.seed,n_rogue=3,n_naive=3,n_restrained=4,
-        model=a.model,world_version='ticketing-mosaic-v1',wall_clock_limit_s=a.wall,
+        model=a.model,world_version='ticketing-blind-intervention-v2',wall_clock_limit_s=a.wall,
         max_tool_calls_per_turn=10,
         run_id=a.run_id or 'ticketing_'+time.strftime('%Y%m%d_%H%M%S'))
     cfg.use_briefs=not a.no_briefs

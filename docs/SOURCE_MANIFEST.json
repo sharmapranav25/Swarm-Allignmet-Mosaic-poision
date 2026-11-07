@@ -1,0 +1,22 @@
+{
+  "source_project": "/Users/pranavsharma/Files/personal-projects/sawrm-allignment",
+  "notes": "Local snapshot of current working files; no git revision available. Source ledgers and credentials are not copied.",
+  "source_files": {
+    "barium/monitor_agent.py": "53d8ab8fb4395f66eff0ee8ed0cffa68454d2db37d64be30f220ff6570cbbbd0",
+    "barium/config.py": "46329786d1effbe1c7406d174bf21dbc5447b4952e487888be9df6bfb3cbadb6",
+    "barium/ledger.py": "31bfdf85c5f732f1785fe734e9759a07071155ac40492064e3f5805727af7c9f",
+    "barium/agents.py": "c3b58257f13bbd3bab472f8d65035d6555b288a415ec966f1cfabd4cdee2c4e4",
+    "barium/schemas.py": "a3323585fa36eaa322221a2de97ae12f7a9181fafefe2a1f974c1ff19524da7a",
+    "barium/llm_transport.py": "887599401118a826f1b83e9a4ba0589d0952bfcfaff38efd01d0f2758c42dd0d",
+    "ticketing/world.py": "5c38d267f3eb568fdf61d625bd2d4592d5210b1cb3039ae8d238ac4977e16cd6",
+    "ticketing/run.py": "ccc9b7965de23e67e2839197d4a08cca0907eaf363c6802e10936eb08905eeaf",
+    "ticketing/__init__.py": "f33d92449d90bbc5d008f35f94a7395cd19611c2863e0b091ebbc38057a47b43",
+    "ticketing/watch.py": "719083f1fe74001dfa6ea214b217ee2e394b7f6ee1142a9ab1c32a5c2e759ec5",
+    "worlds/warehouse-shipping.md": "2bb9f90bf4e276789d102f2a985978a6a44ca548b99f7d5757a7e799a5110af6",
+    "worlds/README.md": "b8ff4a086bf53e33876038ec727eaf7cdb789a95c44655cda887121c1c8f48a9",
+    "worlds/website-breach.md": "0bdc530b85d9a3a3881c1e4917f59c8b91097c822086b004c0d00ece195711f7",
+    "worlds/stock-market.md": "19592875baa3a298c7b505ca6ed36ca9e92b6a3db1cc6436b3e88c283aa65814",
+    "worlds/ticketing.md": "97ba963adce3066e1474deeb0cdba5059efa7f1fd65b10ab7b2a71c941c6d08b",
+    "worlds/performance-reporting.md": "56e0678ba594c5a8d9442899bfccb035d520dfde042bb85c6f3ba21643e55505"
+  }
+}

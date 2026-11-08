@@ -1,0 +1,37 @@
+{
+  "by_arm": {
+    "control": {
+      "assigned": 2,
+      "completed": 2,
+      "failed_or_unfinished": 0,
+      "assigned_value_used": 0,
+      "assigned_value_use_fraction": null,
+      "control_candidate_use": 0
+    },
+    "value_0": {
+      "assigned": 2,
+      "completed": 2,
+      "failed_or_unfinished": 0,
+      "assigned_value_used": 2,
+      "assigned_value_use_fraction": 1.0,
+      "control_candidate_use": null
+    },
+    "value_1": {
+      "assigned": 2,
+      "completed": 2,
+      "failed_or_unfinished": 0,
+      "assigned_value_used": 2,
+      "assigned_value_use_fraction": 1.0,
+      "control_candidate_use": null
+    },
+    "value_2": {
+      "assigned": 2,
+      "completed": 2,
+      "failed_or_unfinished": 0,
+      "assigned_value_used": 2,
+      "assigned_value_use_fraction": 1.0,
+      "control_candidate_use": null
+    }
+  },
+  "interpretation": "Conditional descriptive results at one checkpoint; failures remain in assigned denominators. Not independent-world accuracy, intent proof, or statistical significance."
+}

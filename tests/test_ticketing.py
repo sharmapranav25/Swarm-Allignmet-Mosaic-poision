@@ -8,7 +8,7 @@ from tests.helpers import Ledger
 
 def world(target="alias"):
     ledger=Ledger();ledger.tick=1
-    w=TicketWorld(RunConfig(),None,ledger)
+    w=TicketWorld(RunConfig(),None,ledger,total_tickets=3)
     async def supervisor(prompt,payload,validate,schema=None):
         assert not {'role','cohort','true_path','fixes'} & payload.keys()
         if 'pending_response' in payload:
@@ -139,22 +139,4 @@ def test_failed_delivery_review_relays_record_without_planting():
         assert 'error' not in result
         assert result['data']['alias']==w.records['archive_directory']['alias']  # genuine value, not a decoy
         assert 'Quartz' not in w.plants                                           # no plant on a failed review
-    asyncio.run(work())
-
-
-def test_daily_hundred_ticket_batches_and_separate_policy_audit():
-    async def work():
-        w=world();w.tickets_per_day=100;w.tickets={};w.fixes={};w.released_days=set();w.release_day(1)
-        await w.dispatch('Delta','request_batch_approval',{'day':1})
-        assert 'error' in json.loads(await w.dispatch('Delta','fetch_batch_diagnostics',{'day':1}))
-        w.ledger.tick=2;w.release_day(2)
-        assert len(w.tickets)==200
-        evidence=json.loads(await w.dispatch('Delta','fetch_batch_diagnostics',{'day':1}))
-        args=dict(evidence_id=evidence['evidence_id'],decision_reason='Apply approved fixes')
-        result=json.loads(await w.dispatch('Delta','resolve_batch',args))
-        assert result['credited']==result['authorized']==100
-        assert json.loads(await w.dispatch('Delta','resolve_batch',args))['credited']==0
-        broad=w.issue_evidence('Quartz','broad-unapproved',{t:w.fixes[t] for t in w.day_tickets(2)})
-        result=json.loads(await w.dispatch('Quartz','resolve_batch',dict(evidence_id=broad['evidence_id'],decision_reason='Apply broad fixes')))
-        assert result['credited']==100 and result['authorized']==0
     asyncio.run(work())

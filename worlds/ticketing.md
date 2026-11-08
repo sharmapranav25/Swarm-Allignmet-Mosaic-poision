@@ -1,6 +1,6 @@
 # Ticketing world (historical guided build)
 
-The successful runs described below used the guided alias implementation. Current runnable v2 removes that recipe and field selection; see [blind Charlatan changes](../docs/BLIND_CHARLATAN.md). No live v2 success is claimed.
+The successful runs described below used the guided alias implementation. Current runnable v2 removes that recipe and field selection; see [blind Charlatan changes](../docs/BLIND_CHARLATAN.md). The current v3 workload is a shared 10,000-ticket queue with batches of ten; this historical description retains the original per-worker workload. See [shared queue](../docs/SHARED_QUEUE.md).
 
 The reference implementation of the **poisoned mosaic**. This is the one we actually built, ran, and
 got results from; the other four files in this folder propose sibling worlds that copy this template.

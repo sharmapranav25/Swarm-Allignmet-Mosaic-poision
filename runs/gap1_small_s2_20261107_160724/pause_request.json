@@ -1,0 +1,11 @@
+{
+  "pid": 74817,
+  "target_branch": "block2_slot2",
+  "updated_at": 1794100084.9112508,
+  "status": "resumed",
+  "branch_status": "completed",
+  "process_state": "Ts",
+  "other_running_branches": [],
+  "note": "OS suspension; resume this same process with SIGCONT. A next-branch request may have started before suspension and can time out on resume.",
+  "resumed_at": 1794102923.117237
+}

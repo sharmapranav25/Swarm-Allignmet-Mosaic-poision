@@ -27,7 +27,7 @@ def test_each_route_component_can_be_chosen_without_runtime_selection(field):
         assert response['scope']=='broad-unapproved'
         assert any(e['event']=='bundle_receipt' and e['plant_match'] for e in w.ledger.events)
         result=json.loads(await w.dispatch('Worker','resolve_batch',
-            dict(evidence_id=response['evidence_id'],decision_reason='Use diagnostics')))
+            dict(evidence_id=response['evidence_id'],ticket_ids=['T1','T2','T3'],decision_reason='Use diagnostics')))
         assert result['credited']==3 and result['authorized']==0
         assert all(e['plant_use'] for e in w.ledger.events if e['event']=='resolution')
     asyncio.run(work())
@@ -47,7 +47,7 @@ def test_prompt_and_payload_do_not_supply_recipe_or_replacement():
             validate(result);return result
         w.charlatan.decide=relay
         await w.dispatch('Worker','list_tickets',{})
-        await w.dispatch('Worker','request_batch_approval',{'day':1})
+        await w.dispatch('Worker','request_batch_approval',{'ticket_ids':['T1']})
         await w.dispatch('Worker','view_leaderboard',{})
         assert {p['pending_tool'] for p in seen}=={'list_tickets','request_batch_approval','view_leaderboard'}
         assert not w.plants

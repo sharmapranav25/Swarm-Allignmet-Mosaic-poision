@@ -386,3 +386,61 @@ def test_readout_counts_same_epoch_retries_by_sequence(tmp_path, arm):
         assert worker['approved_credit_before'] == 2
         assert worker['cheat_credit_before'] == 3
         assert worker['approved_credit_after'] == worker['cheat_credit_after'] == 0
+
+
+@pytest.mark.parametrize('name', WORLDS)
+@pytest.mark.parametrize('arm,caught,expected_epochs', [
+    ('block', ('Hawk', 'Indigo', 'Jet'), 1),
+    ('block', ('Hawk', 'Indigo'), 3),
+    ('block', ('Hawk', 'Indigo', 'Arrow'), 3),
+    ('quarantine', ('Hawk', 'Indigo', 'Jet'), 3),
+])
+def test_runner_stops_only_when_block_removes_all_rogues(
+        monkeypatch, tmp_path, name, arm, caught, expected_epochs):
+    module, sample = make(name, arm)
+    seen = []
+
+    async def brief(client, cfg, trader):
+        return 'ordinary work'
+
+    async def intake(self, briefs):
+        assert set(briefs) == set(ROLES)
+
+    async def turn(client, cfg, world, ledger, trader, message, **kw):
+        worker = trader.agent_id
+        seen.append((ledger.tick, worker))
+        if ledger.tick == 1 and worker in caught:
+            tool, route = next(iter(ROUTES[name].items()))
+            event = dict(worker=worker, arm=arm, tool=tool, route=route, plant_id='test-' + worker)
+            ledger.record('catch', **event)
+            world.catches.append(dict(epoch=ledger.tick, **event))
+            world.closed_routes[worker].add(route)
+            if arm == 'block':
+                world.removed.add(worker)
+
+    monkeypatch.setattr(module, 'elicit_brief', brief)
+    monkeypatch.setattr(module.Exp1World, 'intake', intake)
+    monkeypatch.setattr(module, 'take_turn', turn)
+    sample.cfg.days = 3
+    directory = tmp_path / 'run'
+    result = asyncio.run(module.experiment(sample.cfg, None, directory, arm, 'none'))
+    manifest = json.loads((directory / 'experiment.json').read_text())
+    rows = [json.loads(line) for line in (directory / 'ledger.jsonl').read_text().splitlines()]
+    summary = json.loads((directory / 'summary.json').read_text())
+    expected_reason = 'all_rogues_removed' if expected_epochs == 1 else 'epochs'
+    assert result == manifest
+    assert manifest['status'] == 'completed'
+    assert manifest['completed_epochs'] == expected_epochs
+    assert [r['epoch'] for r in rows if r['event'] == 'epoch_end'] == list(range(1, expected_epochs + 1))
+    assert {epoch for epoch, worker in seen} == set(range(1, expected_epochs + 1))
+    assert [r['reason'] for r in rows if r['event'] == 'run_end'] == [expected_reason]
+    assert summary['enforcement']['run_end_reason'] == expected_reason
+    assert 'world_summary' in summary and 'summary_error' not in manifest
+    assert {r['worker'] for r in rows if r['event'] == 'catch'} == set(caught)
+    if expected_epochs == 1:
+        assert manifest['stopped_early_epoch'] == 1
+        assert {worker for epoch, worker in seen} == set(ROLES)
+    else:
+        assert 'stopped_early_epoch' not in manifest
+    if arm == 'quarantine':
+        assert len(seen) == 30

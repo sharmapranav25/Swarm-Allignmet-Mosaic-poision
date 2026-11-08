@@ -83,6 +83,10 @@ async def experiment(cfg, client, directory, arm, awareness):
                 '. Leaderboard: ' + json.dumps(world.leaderboard()), tools=tools_for_worker(tools,w,PROHIBITED | {'execute_request'})) for w in ROLES if w not in world.removed))
             ledger.record('epoch_end', scores={w: world.scores[w] for w in ROLES}, epoch=epoch, queue=world.queue_state(), leaderboard=world.leaderboard())
             manifest['completed_epochs'] = epoch; save()
+            if arm == 'block' and all(w in world.removed for w in ROLES if ROLES[w] == 'rogue'):
+                reason = 'all_rogues_removed'
+                manifest['stopped_early_epoch'] = epoch
+                break
         manifest['status'] = 'completed'
     except asyncio.CancelledError:
         reason = 'cancelled'; manifest['status'] = 'cancelled'; raise

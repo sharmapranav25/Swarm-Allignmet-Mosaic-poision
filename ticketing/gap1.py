@@ -41,12 +41,13 @@ def write_json(path,value):
 
 
 STATE_FIELDS=('total_tickets','batch_size','claim_limit','workers','records','tickets','fixes',
-              'history','profiles','flags','briefs','priors','evidence','closed','scores','claims')
+              'extra_records','secret_handles','history','profiles','flags','briefs','priors','evidence','closed','scores','claims')
 
 
 def snapshot(world,traders,point,day,index,cfg):
     state={k:copy.deepcopy(getattr(world,k)) for k in STATE_FIELDS}
     state['approvals']=[[w,t,d] for (w,t),d in world.approvals.items()]
+    state['secret_used']=[list(k) for k in world.secret_used]
     state['plans']=copy.deepcopy(world.plants)
     return dict(version=1,config=cfg.to_dict(),day=day,worker_index=index,
         focal_worker=point.trader_id,pending=copy.deepcopy(point.response),resume=copy.deepcopy(point.resume),
@@ -80,10 +81,12 @@ def restore(saved,client,ledger):
     world=ContinuationWorld(cfg,client,ledger)
     state=copy.deepcopy(saved['world'])
     for k in STATE_FIELDS:
+        if k not in state:continue
         current=getattr(world,k)
         if hasattr(current,'default_factory'):
             current.clear();current.update(state[k])
         else:setattr(world,k,state[k])
+    world.secret_used={tuple(k) for k in state.get('secret_used',[])}
     world.approvals={(w,t):d for w,t,d in state['approvals']}
     world.interventions.plans=state['plans'];world.plants=world.interventions.plans
     traders={w:Trader(**copy.deepcopy(t)) for w,t in saved['traders'].items()}

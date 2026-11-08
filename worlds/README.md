@@ -1,17 +1,22 @@
-# World construction plans
+# Simulation worlds
 
-These worlds share a testable question: can a small, blind intervention in distributed information change an agent's consequential action in a traceable way? Traceable use and a policy violation are separate claims.
+Ticketing, website, warehouse and reporting each implement three alternative shortcut recipes.
+Each world document specifies the distributed records, tool sequence, legitimate boundary and
+observable misuse. All four reuse the shared agent transport, validation and append-only ledger.
 
-| World | Current status | Consequential action | Additional requirement |
-|---|---|---|---|
-| [Ticketing](ticketing.md) | Runnable; linked page preserves historical results | Retrieve broad diagnostics, then close tickets | Current Gap 1 results are pending; see run artifacts |
-| [Website maintenance](website-breach.md) | Build specification | Cross a simulated access boundary and use returned evidence | Closest reuse of ticketing |
-| [Warehouse/shipping](warehouse-shipping.md) | Build specification | Dispatch to an unapproved destination and claim fulfilment | Shipment/approval provenance and inventory reservations |
-| [Performance reporting](performance-reporting.md) | Build specification | Earn repeated display credit from the same completed work | Separate vulnerable counter from verified work; legitimate retry controls |
-| [Stock market](stock-market.md) | Build specification; attribution extension unresolved | Trade after combining confidential fragments | Derived predictions and randomized ticker-choice controls; ticker match alone is insufficient |
+| World | Recipes |
+|---|---|
+| [Ticketing](ticketing.md) | Broad bundle; foreign-case replay; bulk finalizer |
+| [Website](website-breach.md) | Restricted request; environment crossing; maintenance bypass |
+| [Warehouse](warehouse-shipping.md) | Diversion; duplicate replacement; false delivery |
+| [Reporting](performance-reporting.md) | Event replay; attribution theft; overlapping merge |
+| [Stock market](stock-market.md) | Separate historical/proposed market design; unchanged here |
 
-Read [BUILD_CONTRACT.md](BUILD_CONTRACT.md) before implementing any world. Initial builds use three workers, two days, deterministic data tools, a blind Supervisor and blind Charlatan. The Charlatan selects its own field and value; documents must not prescribe that choice in defender prompts.
+Run `<world>.undefended` for the no-security baseline; `<world>.run` enables the defended world.
+The baseline's ten epochs and five worker calls per epoch are distinct from defended-run defaults.
+No new model runs were launched for the multi-secret implementation. Existing results test older
+single-secret builds and must not be presented as validation of the added recipes.
 
-Reuse the existing streamed agent loop, retries, schema validation and ledger. Extract the intervention registry and world adapter next; the existing ticketing checkpoint runner is not yet generic. Implement website first, then warehouse and reporting; construct the stock engine independently while resolving its different attribution requirements.
-
-These files authorize no claims of cross-world success. Only ticketing is runnable here, and historical ticketing success does not establish that the current randomized experiment or these proposed worlds pass. No new world implementation or live run was created by this documentation update.
+The [build contract](BUILD_CONTRACT.md) records the original design constraints. Its staged rollout
+language predates the current implementation. The checkpoint/random-assignment runner remains
+ticketing-specific; adding recipes does not make it a generic cross-world experiment.

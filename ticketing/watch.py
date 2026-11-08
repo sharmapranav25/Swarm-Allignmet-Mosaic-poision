@@ -83,6 +83,13 @@ class Mon:
                       f"{col}decoy_match={e.get('plant_match')}{c['x']}", t)
         elif k == "resolution" and e.get("plant_use") and not e.get("duplicate"):
             self.line(e["worker"], c["red"], f"{c['b']}POISON resolution{c['x']} ticket {e.get('ticket_id')}", t)
+        elif k == "round_end" and e.get("queue"):
+            q=e['queue']
+            self.line("WORLD", c["cyn"], f"queue: {q['closed']}/{q['total']} closed, {q['remaining']} remaining; leaderboard {e.get('leaderboard')}", t)
+        elif k == "resolution" and e.get("duplicate"):
+            self.line(e['worker'], c['dim'], f"no credit: {e.get('ticket_id')} already closed by {e.get('winner','another worker')}", t)
+        elif k in ("tickets_claimed", "ticket_claim_expired", "ticket_claim_conflict"):
+            self.line(e['worker'], c['dim'], f"{k}: {e.get('ticket_ids',e.get('ticket_id'))}", t)
         elif k == "promotion":
             self.line("WORLD", c["cyn"], f"promoted: {e.get('workers')}", t)
         elif k == "run_end":

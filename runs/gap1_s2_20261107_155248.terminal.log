@@ -1,0 +1,100 @@
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/site-packages/anyio/streams/tls.py", line 175, in _call_sslobject_method
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/ssl.py", line 859, in read
+    v = self._sslobj.read(len)
+        ^^^^^^^^^^^^^^^^^^^^^^
+ssl.SSLWantReadError: The operation did not complete (read) (_ssl.c:2559)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/ticketing/gap1.py", line 301, in execute
+    result=await experiment(cfg,client,ROOT/'runs'/cfg.run_id,args.worker,args.repetitions,args.assignment_seed,args.branch_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/ticketing/gap1.py", line 259, in experiment
+    await continue_world(saved,branch_world,branch_traders,restored_cfg,client,resume)
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/ticketing/gap1.py", line 157, in continue_world
+    await take_turn(client,cfg,world,world.ledger,trader,day_message(world,worker,day,cfg.days),tools=tools_for(ROLES[worker]))
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/core/agents.py", line 54, in take_turn
+    result = await world.dispatch(trader.agent_id, c['name'], args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/ticketing/world.py", line 313, in dispatch
+    response=await self.lookup(worker,args['source'])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/ticketing/world.py", line 191, in lookup
+    result = await self.supervisor.decide(DELIVERY,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/core/monitor_agent.py", line 25, in decide
+    r = await streamed_response(self.client,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/core/llm_transport.py", line 18, in streamed_response
+    async for event in stream:
+  File "/opt/anaconda3/lib/python3.12/site-packages/adaption/_streaming.py", line 131, in __aiter__
+    async for item in self._iterator:
+  File "/opt/anaconda3/lib/python3.12/site-packages/adaption/_streaming.py", line 145, in __stream__
+    async for sse in iterator:
+  File "/opt/anaconda3/lib/python3.12/site-packages/adaption/_streaming.py", line 135, in _iter_events
+    async for sse in self._decoder.aiter_bytes(self.response.aiter_bytes()):
+  File "/opt/anaconda3/lib/python3.12/site-packages/adaption/_streaming.py", line 266, in aiter_bytes
+    async for chunk in self._aiter_chunks(iterator):
+  File "/opt/anaconda3/lib/python3.12/site-packages/adaption/_streaming.py", line 277, in _aiter_chunks
+    async for chunk in iterator:
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpx/_models.py", line 997, in aiter_bytes
+    async for raw_bytes in self.aiter_raw():
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpx/_models.py", line 1055, in aiter_raw
+    async for raw_stream_bytes in self.stream:
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpx/_client.py", line 176, in __aiter__
+    async for chunk in self._stream:
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpx/_transports/default.py", line 271, in __aiter__
+    async for part in self._httpcore_stream:
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpcore/_async/connection_pool.py", line 361, in __aiter__
+    async for part in self._stream:
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpcore/_async/http11.py", line 337, in __aiter__
+    raise exc
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpcore/_async/http11.py", line 329, in __aiter__
+    async for chunk in self._connection._receive_response_body(**kwargs):
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpcore/_async/http11.py", line 198, in _receive_response_body
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpcore/_async/http11.py", line 212, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/httpcore/_backends/anyio.py", line 34, in read
+    return await self._stream.receive(max_bytes=max_bytes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/anyio/streams/tls.py", line 239, in receive
+    data = await self._call_sslobject_method(self._ssl_object.read, max_bytes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/anyio/streams/tls.py", line 182, in _call_sslobject_method
+    data = await self.transport_stream.receive()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1314, in receive
+    await self._protocol.read_event.wait()
+  File "/opt/anaconda3/lib/python3.12/asyncio/locks.py", line 212, in wait
+    await fut
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/ticketing/gap1.py", line 306, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/pranavsharma/Files/personal-projects/swarm-allignment-poision/ticketing/gap1.py", line 304, in main
+    asyncio.run(execute())
+  File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/runners.py", line 123, in run
+    raise KeyboardInterrupt()
+KeyboardInterrupt

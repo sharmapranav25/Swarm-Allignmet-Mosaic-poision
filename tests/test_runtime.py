@@ -24,7 +24,7 @@ class ScriptedClient:
             output=[Output(type='message',role='assistant',content=[{'type':'output_text','text':'Done'}])]
         else:
             output=[Output(type='function_call',name='request_batch_approval',
-                arguments=json.dumps({'day':1}),call_id='approval')]
+                arguments=json.dumps({'ticket_ids':['T1']}),call_id='approval')]
         response=SimpleNamespace(status='completed',output=output,output_text='Done',usage=None)
         return Stream([SimpleNamespace(type='response.completed',response=response)])
 

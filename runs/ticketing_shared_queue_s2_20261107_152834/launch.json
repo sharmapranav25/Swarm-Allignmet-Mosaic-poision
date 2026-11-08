@@ -1,0 +1,20 @@
+{
+  "run_id": "ticketing_shared_queue_s2_20261107_152834",
+  "pid": 65856,
+  "command": [
+    "/opt/anaconda3/bin/python3",
+    "-u",
+    "-m",
+    "ticketing.run",
+    "--rounds",
+    "2",
+    "--seed",
+    "2",
+    "--model",
+    "qwen3.5-397b",
+    "--wall",
+    "3600",
+    "--run-id",
+    "ticketing_shared_queue_s2_20261107_152834"
+  ]
+}

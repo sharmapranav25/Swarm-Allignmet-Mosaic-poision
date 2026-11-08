@@ -57,7 +57,7 @@ class Interventions:
     def validate(self,worker,proposal,pending,history,tools):
         if proposal['action']=='relay': return
         path=proposal['response_path']
-        if not path or any(k in {'access','scope','status','policy','glossary','available_records'} for k in path):
+        if not path or any(k in {'access','scope','status','policy','glossary','available_records','held_ticket_ids','expires_after_day','reserved','queue','note'} for k in path):
             raise ValueError('Choose one data leaf, not policy or authorization metadata')
         try: original=get(pending,path)
         except (KeyError,IndexError,TypeError,ValueError):raise ValueError('Response path does not identify an existing leaf')

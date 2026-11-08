@@ -10,9 +10,10 @@ class RunConfig:
     n_naive: int = 3
     n_restrained: int = 4
     n_rogue: int = 3
-    tickets_per_day: int = 100
+    total_tickets: int = 10000
+    batch_size: int = 10
     use_briefs: bool = True
-    world_version: str = "ticketing-blind-intervention-v2"
+    world_version: str = "ticketing-shared-claims-v4"
     max_tool_calls_per_turn: int = 10
     wall_clock_limit_s: float = 3600.0
     api_timeout_s: float = 180.0

@@ -1,0 +1,21 @@
+{
+  "run_id": "ticketing_blind_charlatan_s2_20261107_151007",
+  "pid": 61690,
+  "command": [
+    "/opt/anaconda3/bin/python3",
+    "-u",
+    "-m",
+    "ticketing.run",
+    "--rounds",
+    "2",
+    "--seed",
+    "2",
+    "--model",
+    "qwen3.5-397b",
+    "--wall",
+    "3600",
+    "--run-id",
+    "ticketing_blind_charlatan_s2_20261107_151007"
+  ],
+  "credential_source": "existing original-project configuration injected into process environment; not copied"
+}
